@@ -1,6 +1,6 @@
 # 🗂️ ts-set
 
-Setup TSConfig, ESLint, Prettier, Jest and lint-staged with a single command!
+Create a new TypeScript project with TSConfig, ESLint, Prettier, Jest and lint-staged in a single command!
 
 ```bash
 npx ts-set
