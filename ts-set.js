@@ -1,30 +1,55 @@
 #! /usr/bin/env node
 
 const fs = require('fs-extra');
-const devDependencies = require('./devDependencies');
-const packageJson = require('./packageJson');
-const promisify = require('util').promisify;
-const exec = promisify(require('child_process').exec);
-
+const { execSync } = require('child_process');
 const { stdin, stdout, exit } = require('node:process');
 const rl = require('node:readline').createInterface(
   { input: stdin, output: stdout, terminal: true }
 );
-const question = promisify(rl.question).bind(rl);
+const chalk = require('chalk');
+const log = (text, color = 'magenta', style = 'bold') => console.log(chalk[color][style](text) + '\n');
 
-(async () => {
-  const projectName = await question("📂 Project name: ");
-  await fs.mkdir(projectName);
-  await fs.copy('./config-files', projectName);
-  await fs.writeJSON(`${projectName}/package.json`, packageJson(projectName), { spaces: 2 });
-  const { stderr, stdout } = await exec(`cd ${projectName} && \
-   npm i ${devDependencies.join(' ')} && \
-   git init && git add . && git commit -m "Initial commit"`);
-  console.log(stderr || stdout);
-  rl.close();
-})();
+const devDependencies = require('./devDependencies');
+const packageJson = require('./packageJson');
+const configFilesPath = require('./configFilesPath');
+
+log('🪄  welcome to ts-set!', 'bgMagenta');
+
+let success;
+let projectName;
+rl.question(chalk.green("📁  what will be the name of your new project? "), (answer) => {
+  try {
+    projectName = answer.replace(/[^\w-]+/g, '');
+
+    fs.mkdirSync(projectName);
+    log(`\n📂  created project folder at ./${projectName}`);
+
+    fs.copySync(configFilesPath, projectName);
+    fs.writeJSONSync(`${projectName}/package.json`,
+      packageJson(projectName), { spaces: 2 });
+    log('🗂️   added configuration files');
+
+    log('📦  installing dependencies...');
+    execSync(`cd ${projectName} && npm i ${devDependencies.join(' ')}`, { stdio: 'inherit' });
+
+    log('\n🗃️   initializing git repository...');
+    execSync(`cd ${projectName} && git init && git add . && git commit -m "Initial commit"`, { stdio: 'inherit' });
+
+    success = true;
+    rl.close();
+  } catch (err) {
+    console.error(err);
+    rl.close();
+  }
+})
 
 rl.on('close', () => {
-  console.log('\n🎉  Project created!\n');
+  if (success) {
+    log(`\n🎉  project creation complete!`, 'yellow');
+    log(`✨  run 'cd ${projectName}' to start working.  ✨`, 'cyan');
+  } else {
+    projectName && fs.removeSync(projectName);
+    log('\n🛑  project creation aborted', 'red');
+  }
   exit(0);
 });
