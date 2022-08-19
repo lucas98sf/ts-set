@@ -6,7 +6,7 @@ const scripts = {
   "prepare": "husky install"
 }
 
-export const packageJson = (projectName) => ({
+module.exports = (projectName) => ({
   "name": projectName,
   "version": "0.0.1",
   "description": "",

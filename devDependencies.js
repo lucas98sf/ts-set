@@ -1,4 +1,4 @@
-export const devDependencies = [
+module.exports = [
   "@babel/core",
   "@babel/preset-env",
   "@babel/preset-typescript",

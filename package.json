@@ -1,14 +1,13 @@
 {
-  "name": "ts-setup",
-  "version": "1.0.0",
+  "name": "ts-set",
+  "version": "1.0.1",
   "description": "Setup TSConfig, ESLint, Prettier, Jest and lint-staged with a single command!",
-  "main": "index.mjs",
-  "bin": {
-    "ts-setup": "./index.mjs"
-  },
+  "main": "ts-set.js",
+  "bin": "./ts-set.js",
+  "exports": "./config-files",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lucas98sf/ts-setup.git"
+    "url": "git+https://github.com/Lucas98sf/ts-set.git"
   },
   "keywords": [
     "typescript",
@@ -23,10 +22,11 @@
   "author": "Lucas98sf",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Lucas98sf/ts-setup/issues"
+    "url": "https://github.com/Lucas98sf/ts-set/issues"
   },
-  "homepage": "https://github.com/Lucas98sf/ts-setup#readme",
+  "homepage": "https://github.com/Lucas98sf/ts-set#readme",
   "dependencies": {
-    "zx": "^7.0.8"
+    "fs-extra": "^10.1.0",
+    "resolve-bin": "^1.0.1"
   }
 }
