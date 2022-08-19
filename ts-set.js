@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 
+const os = require('os');
 const fs = require('fs-extra');
 const { execSync } = require('child_process');
 const { stdin, stdout, exit } = require('node:process');
@@ -26,7 +27,7 @@ rl.question(chalk.green("📁  what will be the name of your new project? "), (a
 
     fs.copySync(configFilesPath, projectName);
     fs.writeJSONSync(`${projectName}/package.json`,
-      packageJson(projectName), { spaces: 2 });
+      packageJson(projectName), { spaces: 2, EOL: os.EOL });
     log('🗂️   added configuration files');
 
     log('📦  installing dependencies...');
