@@ -8,13 +8,16 @@ module.exports = [
   "@typescript-eslint/parser",
   "babel-jest",
   "eslint",
-  "eslint-config-airbnb-base",
+  "eslint-config-airbnb",
   "eslint-config-airbnb-typescript",
   "eslint-config-prettier",
   "eslint-import-resolver-typescript",
   "eslint-plugin-import",
   "eslint-plugin-jest",
+  "eslint-plugin-jsx-a11y",
   "eslint-plugin-prettier",
+  "eslint-plugin-react",
+  "eslint-plugin-react-hooks",
   "husky",
   "jest",
   "lint-staged",
@@ -22,4 +25,4 @@ module.exports = [
   "ts-node",
   "ts-node-dev",
   "typescript",
-]
+];
