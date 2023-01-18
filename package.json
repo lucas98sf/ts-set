@@ -7,7 +7,7 @@
     "ts-set": "./lib/ts-set.js"
   },
   "scripts": {
-    "test": "rm -rf ./testing && npm link && ts-set testing && npm unlink ts-set && code testing"
+    "test": "rm -rf ./testing && npm link && ts-set testing && npm unlink ts-set"
   },
   "exports": "./lib/config-files",
   "repository": {
